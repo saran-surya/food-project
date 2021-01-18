@@ -10,6 +10,12 @@ padding:0;
 overflow-x: hidden; */
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .button{
   padding: 5%;
   border-radius: 8px;
@@ -21,7 +27,9 @@ overflow-x: hidden; */
   cursor: pointer;
 }
 
-
+#get-file, #form-submit{
+  display: none;
+}
 
 .file{
   padding: 8px;
@@ -35,51 +43,85 @@ overflow-x: hidden; */
 }
 
 .error{
-  background-color: rgba(255, 0, 0, 0.691);
-  color: azure;
+  font-weight: bold;
+  /* background-color: rgba(255, 0, 0, 0.691); */
+  color: rgb(255, 0, 0);
+}
+
+.yes{
+  font-weight: bold;
+  background-color: rgb(4, 153, 4);
+  color:white;
+}
+
+.file-success{
+  font-weight: normal;
+  background-color: rgba(5, 185, 5, 0.472);
+  color: black;
 }
 
 .popup{
+  position: absolute;
   font-family: 'Poppins', sans-serif;
   color: white;
-  position: absolute;
+  /* position: absolute; */
   padding: 1%;
   border-radius: 25px;  
-  background-color:darkslateblue;
-  z-index: 100;
-  box-shadow: 2px 2px 3px 100vw rgba(0, 0, 0, 0.328);
-  -webkit-animation: slide-in-top 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  background-color:rgb(32, 15, 143);
+  z-index: 7;
+  -webkit-animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+  animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
 }
-@-webkit-keyframes slide-in-top {
+
+ @-webkit-keyframes puff-in-center {
   0% {
-    -webkit-transform: translateY(-1000px);
-            transform: translateY(-1000px);
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
     opacity: 0;
   }
   100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
     opacity: 1;
   }
- }
- @keyframes slide-in-top {
+}
+@keyframes puff-in-center {
   0% {
-    -webkit-transform: translateY(-1000px);
-            transform: translateY(-1000px);
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-filter: blur(4px);
+            filter: blur(4px);
     opacity: 0;
   }
   100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
     opacity: 1;
   }
- }
-
-
-#get-file{
-  display: none;
 }
+
+
+
+
+.popup-wrapper{
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+  background-color: rgba(0, 0, 0, 0.472);
+}
+
+
+
 
 .main-page-container{
   display: flex;
@@ -128,6 +170,10 @@ overflow-x: hidden; */
   border-bottom: solid;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
+}
+
+.inputError{
+  border-bottom: solid red !important;
 }
 
 .form-group, .form-title{
