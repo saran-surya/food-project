@@ -60,17 +60,31 @@ input::-webkit-inner-spin-button {
   color: black;
 }
 
+.fail{
+  background-color: red;
+  color: black;
+  font-weight: bold;
+}
+
 .popup{
-  position: absolute;
+  /* position: relative; */
   font-family: 'Poppins', sans-serif;
   color: white;
   /* position: absolute; */
-  padding: 1%;
+  padding: 2%;
   border-radius: 25px;  
   background-color:rgb(32, 15, 143);
   z-index: 7;
   -webkit-animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
   animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+}
+
+#popup-image{
+  width: 10em;
+}
+
+.in-popup{
+  margin-top: 5% !important;
 }
 
  @-webkit-keyframes puff-in-center {
@@ -179,6 +193,18 @@ input::-webkit-inner-spin-button {
 .form-group, .form-title{
   margin-top: 15%;
   z-index: 5;
+}
+
+.label-group{
+  position: relative;
+}
+
+.label-group h2{
+  /* display: block; */
+  position: absolute;
+  left: -15%;
+  margin: 0;
+  /* padding: 15px; */
 }
 
 .form-main-container{
