@@ -1,8 +1,9 @@
-import React,{useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import cookingLogo from "../assets/cooking.gif"
 import {Convert} from "mongo-image-converter"
 import {MdPerson, MdEmail,MdPhone,MdAssignmentInd} from 'react-icons/md';
 import {BsBuilding,BsCheckCircle} from 'react-icons/bs';
+import {GlobalContext} from '../context/GlobalState';
 export const RegistrationForm = () => {
     const [nameInput, setName] = useState("");
     const [orgName, setOrgName] = useState("");
@@ -13,8 +14,20 @@ export const RegistrationForm = () => {
     const [inpFile, setFile] = useState();
     const [fileName, setFileName] = useState("");
     const [ConvInpFile, setConvInp] = useState("");
+    // eslint-disable-next-line no-unused-vars
+    const [location, setLocation] = useState("/")
+    const {registerToDb, setWindowLocation} = useContext(GlobalContext)
+    useEffect(()=>{
+        const _localDB = JSON.parse(localStorage.getItem("userCafe"));
+        console.log(_localDB);
+        if(_localDB !== null && _localDB.registered === true){
+            console.log(true);
+            setWindowLocation("/food");
+        }
+        console.log("Hello from Initial state")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location])
 
-    
 
     const HandleInputMbl = (_input)=>{
         console.log(_input.length);
@@ -33,14 +46,22 @@ export const RegistrationForm = () => {
         document.getElementById("input-file-button").className = "yes file button file-success";
     }
     const HandleFileInput = async ()=>{
+        console.log("Handling File")
         // setFileName(document.getElementById("get-file").files[0].name.slice(0, 4));✔
-        setFileName("Click to Change");
         let _file = await(Convert(document.getElementById("get-file").files[0]));
-        if(_file.length > 0 && _file !== false){
+        const _fileSize = new TextEncoder().encode(_file).length / 1000
+        console.log(_fileSize);
+        if(_file.length > 0 && _file !== false && _fileSize < 6000){
+            setFileName("Click to Change");
             setConvInp(_file);
             ChangeInpState();
-            console.log(_file);
-            console.log(fileName);
+            // console.log(_file);
+            // console.log(fileName);
+        } else {
+            setFileName("");
+            setConvInp("");
+            setFile();
+            fileError();
         }
     }
     
@@ -51,6 +72,13 @@ export const RegistrationForm = () => {
         return (true)
     }
         return (false)
+    }
+
+    function fileError(){
+        document.getElementById("input-file-button").className = "file button fail";
+        setTimeout(() => {
+            document.getElementById("input-file-button").className = "file button";
+        }, 500);
     }
 
     const HandleSubmit = ()=>{
@@ -64,16 +92,33 @@ export const RegistrationForm = () => {
                 setpopup(true);
                 console.log("Valid Form");
             }else{ 
-            document.getElementById("form-submit").click();
+                if(nameInput.length <= 2 || 
+                    orgName.length <= 1 || 
+                    empId.length <= 3 || 
+                    mblNo.length < 10 ||
+                    !ValidateEmail(emailId)){
+                    document.getElementById("form-submit").click();
+                }
             if(ConvInpFile === false || ConvInpFile === null || fileName === "" || fileName === null){
                 console.log("File Error");
-                document.getElementById("input-file-button").className = "file button fail";
-                setTimeout(() => {
-                    document.getElementById("input-file-button").className = "file button";
-                }, 500);
-            }}
+                fileError();
+            }
+            }
         // check if all inputs are valid, if yes, then send to setPopup else we click the form buttin that will take of the form validation
         console.log("Submitted");
+    }
+
+    function handleFinish(){
+        const payload = {
+            fullName : nameInput,
+            orgName : orgName,
+            empId : empId,
+            mblNo : mblNo,
+            emailId : emailId,
+            imgFile : ConvInpFile,
+        }
+        // lclRegistration(payload);
+        registerToDb(payload);
     }
 
     // ----------------------> !!!!!!!!!!!!  need to take care of ID card input
@@ -102,8 +147,8 @@ export const RegistrationForm = () => {
                         <img src = {ConvInpFile} alt="something" id="popup-image"></img>
                     </div>   
                     <h2>Are you sure to continue ?</h2>
-                    <button type = "submit" className = "yes button">YES</button>
-                    <button type = "submit" className = "error button" onClick={(e)=>{e.preventDefault(); setpopup(false)}}>NO</button>
+                    <button type = "submit" className = "yes button" onClick = {(e)=>{e.preventDefault(); handleFinish()}}>YES</button>
+                    <button type = "submit" className = "error button no" onClick={(e)=>{e.preventDefault(); setpopup(false)}}>NO</button>
                 </div>
             </div>
             :null}
@@ -168,7 +213,9 @@ export const RegistrationForm = () => {
                                 :null}
                             {/* <label>ID CARD upload</label>  */}
                             <button id="input-file-button" onClick = {(e)=>{e.preventDefault();document.getElementById("get-file").click()}} className = "file button">{(fileName.length > 0)?fileName:"picture of ID Card"}</button>
-                            <input required="true" type = "file" id="get-file" onInput={(e)=>{e.preventDefault(); HandleFileInput(); setFile(e.target.value)}} value = {inpFile}  accept = ".jpeg, .jpg, .png"></input>
+                            <br/>
+                            <small>*Less than 6 mb</small>
+                            <input required="true" type = "file" id="get-file" onChange={(e)=>{e.preventDefault(); HandleFileInput();}} value = {inpFile}  accept = ".jpeg, .jpg, .png"></input>
                         </div>   
                         <button type = "submit" id="form-submit">Submit</button>        
                     </form>
