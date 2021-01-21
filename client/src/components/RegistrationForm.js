@@ -14,6 +14,9 @@ export const RegistrationForm = () => {
     const [inpFile, setFile] = useState();
     const [fileName, setFileName] = useState("");
     const [ConvInpFile, setConvInp] = useState("");
+    const [secondPopup, setSecondPopup] = useState(false)
+    const [timer, setTimer] = useState(15)
+    const [regNo, setRegNo] = useState(0)
     // eslint-disable-next-line no-unused-vars
     const [location, setLocation] = useState("/")
     const {registerToDb, setWindowLocation} = useContext(GlobalContext)
@@ -109,22 +112,47 @@ export const RegistrationForm = () => {
     }
 
     function handleFinish(){
+        const _id = (Math.floor(100000 + Math.random() * 900000))
+        setRegNo(_id)
         const payload = {
             fullName : nameInput,
             orgName : orgName,
             empId : empId,
             mblNo : mblNo,
             emailId : emailId,
+            registerId : _id,
             imgFile : ConvInpFile,
         }
         // lclRegistration(payload);
         registerToDb(payload);
+        setSecondPopup(true)
+    }
+
+    if(secondPopup){
+        if(timer === 0){
+            setWindowLocation("/food")
+        }else {
+            setTimeout(()=>{
+                setTimer(timer-1)
+            }, 1000)
+        }
     }
 
     // ----------------------> !!!!!!!!!!!!  need to take care of ID card input
     return (
         <div className="main-page-container">
-            {(popup)?
+            {(popup)?(secondPopup)?
+            <div>
+                <div className = "popup-wrapper" id="wrap">
+                    <div className = "popup id-card">
+                        Hello, <br/>
+                        You have registered successfully, <br/><br/>
+                        Regristration ID : {regNo}, <br/>
+                        <small>redirecting in {timer}</small>
+                    </div>
+                </div>
+            </div>
+            :
             <div className = "popup-wrapper" id="wrap">
                 <div className = "popup">
                     <div className = "form-group in-popup">

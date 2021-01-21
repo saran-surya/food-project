@@ -7,7 +7,7 @@ export default (state, action)=>{
                 ...state
             }
         case "register-user":
-            const _data = action.payload;
+            let _data = action.payload;
             state.fullName = _data.fullName;
             state.orgName = _data.orgName;
             state.empId = _data.empId;
@@ -15,8 +15,20 @@ export default (state, action)=>{
             state.emailId = _data.emailId;
             state.imgFile = _data.imgFile
             state.registered = _data.registered;
+            state.registerId = _data.registerId;
             console.log(_data);
             return {
+                ...state
+            }
+        case "local-set":
+            const _datalcl = action.payload;
+            state.fullName = _datalcl.fullName;
+            state.orgName = _datalcl.orgName;
+            state.empId = _datalcl.empId;
+            state.mblNo = _datalcl.mblNo;
+            state.emailId = _datalcl.emailId;
+            state.registerId = _datalcl.registerId;
+            return{
                 ...state
             }
         default : 

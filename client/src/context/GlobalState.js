@@ -8,6 +8,7 @@ const initialState = {
     mblNo : "",
     emailId : "",
     imgFile : "",
+    registerId:'',
     registered : false,
     loading : true,
     error: false 
@@ -19,10 +20,13 @@ export const GlobalProvider = ({children}) => {
     const [state, dispatch] = useReducer(Appreducer, initialState)
 
     function sample(){
-        console.log("Gbl state")
+        console.log(gblGet())
+    }
+
+    function localSetter(pack){
         dispatch({
-            type : "sample",
-            payload : "sample"
+            type: "local-set",
+            payload : pack
         })
     }
 
@@ -38,9 +42,11 @@ export const GlobalProvider = ({children}) => {
             empId : state.empId,
             mblNo : state.mblNo,
             emailId : state.emailId,
+            registerId : state.registerId,
         } 
         return packet 
     }
+
 
     function setWindowLocation(location){
         window.location = location;
@@ -61,9 +67,9 @@ export const GlobalProvider = ({children}) => {
             empId : state.empId,
             mblNo : state.mblNo,
             emailId : state.emailId,
+            registerId: state.registerId,
             registered : state.registered,
         }))
-        setWindowLocation("/food")
     }
     return(
         <GlobalContext.Provider value = {{
@@ -73,12 +79,14 @@ export const GlobalProvider = ({children}) => {
             mblNo : state.mblNo,
             emailId : state.emailId,
             imgFile : state.imgFile,
+            registerId : state.registerId,
             registered : state.registered,
             sample,
             lclRegistration,
             gblGet,
             registerToDb,
             setWindowLocation,
+            localSetter,
             loading : state.loading,
             error: state.error
         }}>

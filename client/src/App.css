@@ -73,8 +73,29 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
 }
 
+.nav-bar{
+  position: relative;
+  background-color: rgb(72, 156, 16);
+  margin: 0;
+  padding: 1em;
+  border-radius: 2%;
+  box-shadow: 0px 2px 12px 1px black;
+}
+.nav-bar h2{
+  font-family: 'Poppins', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-bar h2:last-of-type{
+  position: absolute;
+  top: 0;
+  padding: inherit;
+  right: 2em;
+}
+
 .popup{
-  /* position: relative; */
+  position: relative;
   font-family: 'Poppins', sans-serif;
   color: white;
   /* position: absolute; */
@@ -128,12 +149,20 @@ input::-webkit-inner-spin-button {
 }
 
 
+.id-card{
+  position: relative;
+  width: 20%;
+  height: 15%;
+  padding: 3%;
+}
 
 
 .popup-wrapper{
   position: absolute;
-  height: 100vh;
-  width: 100vw;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,4 +260,63 @@ input::-webkit-inner-spin-button {
   margin-left: 8%;
 }
 
+/* For Food menu */
 
+
+
+.menu-wrapper{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+  margin-top: 1em;
+}
+
+.breakfast{
+  position: relative;
+  margin: 0em 3em 0 10em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+
+.breakfast h3{
+  z-index: 7;
+  position: absolute;
+  left: -10%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.lunch{
+  margin-top: 5em;
+}
+
+.breakfast-ingroup{
+  position: relative;
+  margin: 0.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+}
+
+
+.breakfast-ingroup img{
+  margin: 2px;
+  width: 12em;
+  height: 12em;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.meals-ingroup-rate{
+  /* background-color: aqua; */
+  position: absolute;
+  text-align: center;
+  bottom: -4em;
+  font-family: 'Poppins', sans-serif;
+}
