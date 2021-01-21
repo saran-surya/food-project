@@ -4,6 +4,7 @@
   "description": "A cafeteria based project",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon inedx.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +21,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongo-image-converter": "^1.0.2",
     "mongoose": "^5.11.12",

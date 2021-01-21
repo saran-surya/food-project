@@ -15,11 +15,10 @@ export const RegistrationForm = () => {
     const [fileName, setFileName] = useState("");
     const [ConvInpFile, setConvInp] = useState("");
     const [secondPopup, setSecondPopup] = useState(false)
-    const [timer, setTimer] = useState(15)
     const [regNo, setRegNo] = useState(0)
     // eslint-disable-next-line no-unused-vars
     const [location, setLocation] = useState("/")
-    const {registerToDb, setWindowLocation} = useContext(GlobalContext)
+    const {registerToDb, setWindowLocation, error, loading} = useContext(GlobalContext)
     useEffect(()=>{
         const _localDB = JSON.parse(localStorage.getItem("userCafe"));
         console.log(_localDB);
@@ -37,13 +36,6 @@ export const RegistrationForm = () => {
         if ((/[0-9]/.test(_input[_input.length - 1])) || _input.length === 0 ){
             setMblno(_input);
         }
-
-        // if(_input.length > 10){
-        //     document.getElementById("mobile-number").className = "inputError"
-        // } else {
-        //     // setMblno(_input);
-        //     // document.getElementById("mobile-number").className = ""
-        // }
     }
     const ChangeInpState = ()=>{
         document.getElementById("input-file-button").className = "yes file button file-success";
@@ -127,15 +119,10 @@ export const RegistrationForm = () => {
         registerToDb(payload);
         setSecondPopup(true)
     }
-
-    if(secondPopup){
-        if(timer === 0){
-            setWindowLocation("/food")
-        }else {
-            setTimeout(()=>{
-                setTimer(timer-1)
-            }, 1000)
-        }
+    console.log("--->", error, loading)
+    if(secondPopup && !error && !loading){
+        console.log("Hello")
+        setWindowLocation("/food")
     }
 
     // ----------------------> !!!!!!!!!!!!  need to take care of ID card input
@@ -148,7 +135,16 @@ export const RegistrationForm = () => {
                         Hello, <br/>
                         You have registered successfully, <br/><br/>
                         Regristration ID : {regNo}, <br/>
-                        <small>redirecting in {timer}</small>
+                        <small>{(loading)?
+                        <div class="sk-chase">
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                      </div>
+                        :null}</small>
                     </div>
                 </div>
             </div>

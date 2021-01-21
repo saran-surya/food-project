@@ -31,6 +31,18 @@ export default (state, action)=>{
             return{
                 ...state
             }
+        case "error":
+            state.error = action.payload.error
+            console.log("error-toggled", state.error)
+            return{
+                ...state
+            }
+        case "load":
+            state.loading = action.payload.loader
+            console.log("loading toggled", state.loading)
+            return{
+                ...state
+            }
         default : 
             return {
                 ...state

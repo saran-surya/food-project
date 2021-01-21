@@ -1,5 +1,6 @@
 import React,{createContext, useReducer} from 'react'
 import Appreducer from './Appreducer';
+import axios from 'axios';
 
 const initialState = {
     fullName : "",
@@ -10,7 +11,7 @@ const initialState = {
     imgFile : "",
     registerId:'',
     registered : false,
-    loading : true,
+    loading : false,
     error: false 
 }
 
@@ -30,9 +31,65 @@ export const GlobalProvider = ({children}) => {
         })
     }
 
+    function toggleLoad(){
+        dispatch({
+            type: "load",
+            payload : {
+                loader : !state.loading
+            }
+        })
+    }
+
+    function toggleError(){
+        dispatch({
+            type: "error",
+            payload : {
+                error:!state.error
+            }
+        })
+    }
+
     async function registerToDb(pack){
-        console.log(pack)
-        lclRegistration(pack, true);
+        try {
+            toggleLoad()
+            const config = {
+                headers:{
+                    'ContentType': 'application/json'
+                }
+            }
+
+            const packet = {
+                userName : pack.fullName,
+                orgName : pack.orgName,
+                empId : pack.empId,
+                mobileNumber : pack.mblNo,
+                emailId : pack.emailId,
+                userImg : pack.imgFile,
+                regId : String(pack.registerId),
+            }
+            const serverData = await axios.post('http://localhost:5000/register', packet, config)
+            // const serverData = await axios.post('/register', packet, config)
+            console.log(serverData.data)
+            if(serverData.data.success){
+                toggleLoad()
+                console.log(pack)
+                lclRegistration(pack, true);
+                localStorage.setItem("userCafe", JSON.stringify({
+                    fullName : pack.fullName,
+                    orgName : pack.orgName,
+                    empId : pack.empId,
+                    mblNo : pack.mblNo,
+                    emailId : pack.emailId,
+                    registerId: pack.registerId,
+                    registered : true,
+                }))
+            }else{
+                throw Error
+            }
+        } catch (err) {
+            console.log(err.message)
+            toggleError()
+        }
     }
 
     function gblGet(){
@@ -61,15 +118,6 @@ export const GlobalProvider = ({children}) => {
         })
         console.log(state.registered)
         // move this to GBL registration
-        localStorage.setItem("userCafe", JSON.stringify({
-            fullName : state.fullName,
-            orgName : state.orgName,
-            empId : state.empId,
-            mblNo : state.mblNo,
-            emailId : state.emailId,
-            registerId: state.registerId,
-            registered : state.registered,
-        }))
     }
     return(
         <GlobalContext.Provider value = {{

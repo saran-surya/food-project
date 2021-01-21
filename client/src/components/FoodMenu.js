@@ -15,7 +15,7 @@ import southMeals from '../assets/images/lunch/southMeals.jpg';
 export const FoodMenu = () => {
     // eslint-disable-next-line no-unused-vars
     const [location, setLocation] = useState("/food")
-    const {setWindowLocation, localSetter, fullName, empId, registerId} = useContext(GlobalContext)
+    const {setWindowLocation, localSetter, fullName, registerId} = useContext(GlobalContext)
     useEffect(()=>{
         const _localDB = JSON.parse(localStorage.getItem("userCafe"));
         console.log(_localDB);   
@@ -50,7 +50,7 @@ export const FoodMenu = () => {
         <div className = "main-grid-wrapper">
             <div className = "nav-bar">
                 <h2>Hello &nbsp; &nbsp; {fullName}</h2>
-                <h2>Registration ID : {registerId}</h2>
+                <h2>ID : {registerId}</h2>
             </div>
             <div className = "menu-wrapper">
                 <div className = "breakfast">
