@@ -26,12 +26,12 @@ dotenv.config({
     path: './config.env'
 })
 
-router.get("/", async(req, res)=>{
-    res.status(200).json({
-        connection: true,
-        message:"Hello from Server :)"
-    })
-})
+// router.get("/", async(req, res)=>{
+//     res.status(200).json({
+//         connection: true,
+//         message:"Hello from Server :)"
+//     })
+// })
 
 router.post("/register", async(req, res)=>{
     req.body["regTime"] = dates()
