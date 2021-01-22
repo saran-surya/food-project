@@ -28,6 +28,22 @@ input::-webkit-inner-spin-button {
   box-shadow: -2px 2px 5px rgba(168, 8, 8, 0.336);
 }
 
+.fixed{
+  padding: 0;
+  position: relative;
+  top: .5em;
+  /* height: 20px; */
+  /* background-color: burlywood; */
+  height: 2em;
+  width: 3em;
+}
+
+.fixed:hover{
+  background-color: rgb(63, 247, 63);
+}
+
+
+
 #get-file, #form-submit{
   display: none;
 }
@@ -171,6 +187,10 @@ input::-webkit-inner-spin-button {
   background-color: rgba(0, 0, 0, 0.472);
 }
 
+.error-window{
+  background-color: brown;
+  padding: 4%;
+}
 
 
 
@@ -275,7 +295,7 @@ input::-webkit-inner-spin-button {
 
 .breakfast{
   position: relative;
-  margin: 0em 3em 0 10em;
+  margin: 1em 3em 0 10em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -291,7 +311,7 @@ input::-webkit-inner-spin-button {
 }
 
 .lunch{
-  margin-top: 5em;
+  margin-top: 6em;
 }
 
 .breakfast-ingroup{
@@ -317,9 +337,10 @@ input::-webkit-inner-spin-button {
   /* background-color: aqua; */
   position: absolute;
   text-align: center;
-  bottom: -4em;
+  bottom: -5.5em;
   font-family: 'Poppins', sans-serif;
 }
+
 
 
 /* loader */

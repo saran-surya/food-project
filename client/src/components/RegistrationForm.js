@@ -124,11 +124,25 @@ export const RegistrationForm = () => {
         console.log("Hello")
         setWindowLocation("/food")
     }
+    
 
     // ----------------------> !!!!!!!!!!!!  need to take care of ID card input
     return (
         <div className="main-page-container">
-            {(popup)?(secondPopup)?
+            {/* {(error)?
+            <div className = "popup-wrapper">
+                Hello                
+            </div>:null} */}
+            {(popup)?(secondPopup)?(error)?
+            <div className = "popup-wrapper">
+                <div className = "popup error-window">
+                    Error! 404 <br/>
+                    unable to register <br/>
+                    Kindly refresh the page and <br/>
+                    Try again!!
+                </div>
+            </div>
+            :
             <div>
                 <div className = "popup-wrapper" id="wrap">
                     <div className = "popup id-card">

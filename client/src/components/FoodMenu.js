@@ -62,7 +62,8 @@ export const FoodMenu = () => {
                                 <img src ={element}></img>
                                 <div className = "meals-ingroup-rate">
                                     {brkNames[i]}<br/>
-                                    {menuCostBrk[i]}/-
+                                    {menuCostBrk[i]}/- <br/>
+                                    <button className = "button fixed">Add</button>
                                 </div>
                             </div>
                             )
@@ -78,7 +79,8 @@ export const FoodMenu = () => {
                                 <img src ={element}></img>
                                 <div className = "meals-ingroup-rate">
                                     {lunchNames[i]}<br/>
-                                    {menuCostLunch[i]}/-
+                                    {menuCostLunch[i]}/-<br/>
+                                    <button className = "button fixed"><span>Add</span></button>
                                 </div>
                             </div>
                             )

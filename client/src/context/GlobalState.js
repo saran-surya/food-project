@@ -67,8 +67,8 @@ export const GlobalProvider = ({children}) => {
                 userImg : pack.imgFile,
                 regId : String(pack.registerId),
             }
-            const serverData = await axios.post('http://localhost:5000/register', packet, config)
-            // const serverData = await axios.post('/register', packet, config)
+            // const serverData = await axios.post('http://localhost:5000/register', packet, config)
+            const serverData = await axios.post('/register', packet, config)
             console.log(serverData.data)
             if(serverData.data.success){
                 toggleLoad()
